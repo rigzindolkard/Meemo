@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sticker Understander — Context-Aware AI Sticker & Meme Interpreter</title>
+  <meta name="description" content="AI-powered tool that decodes the hidden meaning, emotion, humor, and cultural references behind stickers and memes used in modern digital conversations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Background Glow Orbs -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+
+  <!-- Header -->
+  <header class="navbar">
+    <div class="brand">
+      <div class="brand-icon">🎭</div>
+      <div class="brand-text">
+        <h1>Sticker Understander</h1>
+        <span class="tagline">Multilingual AI Sticker & Meme Decoder</span>
+      </div>
+    </div>
+    
+    <div class="header-actions">
+      <div class="sarvam-badge" id="sarvamStatusBadge" title="Sarvam AI Engine Status">
+        <span class="status-dot"></span>
+        <span class="badge-label">Sarvam AI Powered</span>
+      </div>
+
+      <button id="themeToggleBtn" class="theme-toggle" aria-label="Toggle theme">
+        <span class="theme-icon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="app-container">
+    <!-- Left Column: Input Panel -->
+    <section class="panel input-panel">
+      <div class="panel-header">
+        <span class="section-tag">Step 1: Choose or Upload Sticker</span>
+        <h2>What sticker did you receive?</h2>
+        <p class="section-desc">Select a popular sticker below, paste an image with <kbd>Ctrl+V</kbd>, or upload your own file.</p>
+      </div>
+
+      <!-- Quick Preset Stickers Showcase -->
+      <div class="presets-section">
+        <span class="field-label">Try popular reaction stickers:</span>
+        <div class="preset-grid" id="presetGrid">
+          <button class="preset-card active" data-preset="cat" data-title="Dramatic Cat Collapse" data-desc="An expressive orange cat lying flat on the floor in dramatic exhaustion and defeat">
+            <img src="cat.svg" alt="Dramatic Cat Sticker">
+            <span class="preset-name">Cat Collapse</span>
+          </button>
+          
+          <button class="preset-card" data-preset="doge" data-title="Cheems Awkward Doge" data-desc="Shiba Inu looking awkward, guilty, and sheepish with side-eye expression">
+            <img src="doge.svg" alt="Cheems Doge Sticker">
+            <span class="preset-name">Cheems Awkward</span>
+          </button>
+          
+          <button class="preset-card" data-preset="herapheri" data-title="Babu Bhaiya Shock" data-desc="Character holding head with both hands in pure comedic disbelief and headache">
+            <img src="herapheri.svg" alt="Hera Pheri Sticker">
+            <span class="preset-name">Babu Bhaiya</span>
+          </button>
+          
+          <button class="preset-card" data-preset="peeking" data-title="Shy Anime Wall Peeking" data-desc="Cute chibi anime character peeking nervously from behind a wall with blush">
+            <img src="peeking.svg" alt="Peeking Shy Sticker">
+            <span class="preset-name">Shy Peeking</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Upload / Drag & Drop Area -->
+      <div class="upload-dropzone" id="dropZone">
+        <input type="file" id="fileInput" accept="image/png, image/jpeg, image/webp" class="visually-hidden">
+        <div class="dropzone-content" id="dropContent">
+          <div class="upload-icon-circle">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+          </div>
+          <p class="drop-primary"><strong>Click to upload</strong> or drag & drop sticker</p>
+          <p class="drop-hint">PNG, JPG, WebP supported • You can also press <kbd>Cmd</kbd>+<kbd>V</kbd> to paste</p>
+        </div>
+
+        <!-- Image Preview Overlay -->
+        <div class="preview-container hidden" id="previewContainer">
+          <img id="previewImage" src="" alt="Selected Sticker Preview">
+          <div class="preview-meta">
+            <span class="preview-filename" id="previewFilename">cat.svg</span>
+            <button type="button" class="btn-remove-preview" id="btnRemovePreview" title="Remove & choose another">✕ Remove</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conversation Context Input -->
+      <div class="form-group">
+        <div class="label-row">
+          <label for="chatContextInput" class="field-label">Conversation Context <span class="badge-optional">Optional but Recommended</span></label>
+          <button type="button" class="btn-context-example" id="btnFillExampleContext">Insert Example</button>
+        </div>
+        <textarea id="chatContextInput" rows="3" placeholder="Paste the messages right before this sticker was sent, e.g.:
+Friend: 'Are you ready for the Monday 9 AM presentation?'
+Me: *sends this sticker*"></textarea>
+        <span class="input-tip">Stickers change meaning drastically with context! Adding chat messages gives pinpoint accuracy.</span>
+      </div>
+
+      <!-- Language Preference Selector -->
+      <div class="form-group">
+        <label class="field-label">Explanation Language</label>
+        <div class="lang-pills" id="langSelector">
+          <button type="button" class="lang-pill active" data-lang="English">
+            <span class="lang-flag">🇬🇧</span> English
+          </button>
+          <button type="button" class="lang-pill" data-lang="Hinglish">
+            <span class="lang-flag">🇮🇳</span> Hinglish
+          </button>
+          <button type="button" class="lang-pill" data-lang="Hindi">
+            <span class="lang-flag">🇮🇳</span> हिंदी (Hindi)
+          </button>
+        </div>
+      </div>
+
+      <!-- Primary Action Button -->
+      <button type="button" id="btnAnalyze" class="btn-primary">
+        <span class="btn-icon">⚡</span>
+        <span class="btn-text">Understand This Sticker</span>
+      </button>
+    </section>
+
+    <!-- Right Column: AI Agent Workflow & Results -->
+    <section class="panel output-panel">
+      <!-- Multi-Agent Live Pipeline Visualizer -->
+      <div class="agent-pipeline-box" id="agentPipeline">
+        <div class="pipeline-header">
+          <span class="pipeline-title">🤖 Multi-Stage AI Agent Architecture</span>
+          <span class="pipeline-status" id="pipelineStatusText">Ready for analysis</span>
+        </div>
+
+        <div class="agent-steps-grid">
+          <div class="agent-step" id="stepVision">
+            <div class="agent-step-icon">👁️</div>
+            <div class="agent-step-info">
+              <span class="agent-name">Agent 1: Vision Analyst</span>
+              <span class="agent-desc">Detects characters, facial cues & objects</span>
+            </div>
+            <span class="agent-indicator"></span>
+          </div>
+
+          <div class="agent-step" id="stepEmotion">
+            <div class="agent-step-icon">🎭</div>
+            <div class="agent-step-info">
+              <span class="agent-name">Agent 2: Emotion Analyst</span>
+              <span class="agent-desc">Decodes implied feelings & sarcasm</span>
+            </div>
+            <span class="agent-indicator"></span>
+          </div>
+
+          <div class="agent-step" id="stepContext">
+            <div class="agent-step-icon">💬</div>
+            <div class="agent-step-info">
+              <span class="agent-name">Agent 3: Context Interpreter</span>
+              <span class="agent-desc">Connects sticker to recent conversation</span>
+            </div>
+            <span class="agent-indicator"></span>
+          </div>
+
+          <div class="agent-step" id="stepMeme">
+            <div class="agent-step-icon">🧠</div>
+            <div class="agent-step-info">
+              <span class="agent-name">Agent 4: Meme & Culture Analyst</span>
+              <span class="agent-desc">Identifies internet tropes & references</span>
+            </div>
+            <span class="agent-indicator"></span>
+          </div>
+
+          <div class="agent-step" id="stepGenerator">
+            <div class="agent-step-icon">✨</div>
+            <div class="agent-step-info">
+              <span class="agent-name">Agent 5: Explanation Generator</span>
+              <span class="agent-desc">Synthesizes clear, actionable explanation</span>
+            </div>
+            <span class="agent-indicator"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State View -->
+      <div class="empty-state" id="emptyState">
+        <div class="empty-illustration">🔍</div>
+        <h3>Select a sticker to decode its true meaning</h3>
+        <p>Pick one of the reaction stickers on the left or upload your own to see what the multi-agent AI uncovers.</p>
+      </div>
+
+      <!-- Results Display View -->
+      <div class="results-container hidden" id="resultsContainer">
+        <!-- Top Summary Bar -->
+        <div class="result-header-bar">
+          <div class="result-title-group">
+            <span class="section-tag" id="resultConfidenceBadge">High Confidence</span>
+            <h3 id="resultStickerTitle">Dramatic Cat Collapse</h3>
+          </div>
+          <div class="result-actions">
+            <button type="button" class="btn-voice-read" id="btnVoiceRead" title="Listen to explanation read aloud">
+              <span class="voice-icon">🔊</span>
+              <span class="voice-text">Listen</span>
+            </button>
+            <button type="button" class="btn-copy-all" id="btnCopyExplanation" title="Copy full explanation">
+              <span>📋</span> Copy
+            </button>
+          </div>
+        </div>
+
+        <!-- Meaning Card -->
+        <div class="card card-meaning">
+          <div class="card-title-row">
+            <span class="card-icon">💡</span>
+            <h4>What it probably means</h4>
+          </div>
+          <p class="meaning-text" id="resultMeaningText">
+            Exaggerated defeat, overwhelming exhaustion, or humorous despair when facing difficult responsibilities.
+          </p>
+          
+          <!-- Emotion Tags -->
+          <div class="emotion-tags-wrapper">
+            <span class="tags-label">Emotional Tone:</span>
+            <div class="emotion-tags" id="resultEmotionTags">
+              <span class="tag-badge">Dramatic</span>
+              <span class="tag-badge">Playful Despair</span>
+              <span class="tag-badge">Overwhelmed</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contextual Synthesis Card -->
+        <div class="card card-context">
+          <div class="card-title-row">
+            <span class="card-icon">🎯</span>
+            <h4>In Your Conversation</h4>
+          </div>
+          <p class="context-text" id="resultContextText">
+            In response to your conversation, this sticker humorously communicates that you're done or collapsing under the pressure rather than giving a dry refusal.
+          </p>
+        </div>
+
+        <!-- Visible Content & Meme Reference Grid -->
+        <div class="details-grid">
+          <div class="card card-detail">
+            <div class="card-title-row">
+              <span class="card-icon">👁️</span>
+              <h4>What is visibly present</h4>
+            </div>
+            <p class="detail-body" id="resultVisibleText">
+              An orange cat lying completely flat on the floor with paws stretched out in pure exhaustion.
+            </p>
+          </div>
+
+          <div class="card card-detail">
+            <div class="card-title-row">
+              <span class="card-icon">🌐</span>
+              <h4>Meme & Cultural Reference</h4>
+            </div>
+            <p class="detail-body" id="resultMemeText">
+              Derived from the viral 'cat collapsing from existential dread' internet meme format.
+            </p>
+          </div>
+        </div>
+
+        <!-- Alternative Meanings Accordion -->
+        <div class="card card-accordion">
+          <details id="accordionAlternatives">
+            <summary>
+              <div class="summary-left">
+                <span class="card-icon">🔀</span>
+                <strong>Other Possible Interpretations</strong>
+              </div>
+              <span class="accordion-arrow">▼</span>
+            </summary>
+            <ul class="alternatives-list" id="resultAlternativesList">
+              <li>Playful refusal to cooperate or answer the question</li>
+              <li>Dying of boredom during an uninteresting topic</li>
+            </ul>
+          </details>
+        </div>
+
+        <!-- Suggested Replies to Send Back -->
+        <div class="card card-replies">
+          <div class="card-title-row">
+            <span class="card-icon">💬</span>
+            <h4>Suggested Replies You Can Send</h4>
+            <span class="card-tip">Click any reply to copy instantly</span>
+          </div>
+          <div class="replies-list" id="resultRepliesList">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Follow-Up Questions Section -->
+        <div class="card card-followup">
+          <div class="card-title-row">
+            <span class="card-icon">❓</span>
+            <h4>Ask a Follow-Up Question</h4>
+          </div>
+          <div class="followup-chips">
+            <button type="button" class="chip-btn" data-query="Explain in simpler words">Explain simpler</button>
+            <button type="button" class="chip-btn" data-query="Why is this funny?">Why is it funny?</button>
+            <button type="button" class="chip-btn" data-query="Explain in Hinglish">In Hinglish</button>
+            <button type="button" class="chip-btn" data-query="Is it sarcastic?">Is it sarcastic?</button>
+            <button type="button" class="chip-btn" data-query="What other witty replies can I send?">More replies</button>
+          </div>
+          
+          <div class="followup-input-row">
+            <input type="text" id="followUpInput" placeholder="Ask anything about this sticker (e.g. 'Is it rude?')...">
+            <button type="button" id="btnSendFollowUp" class="btn-subaction">Send</button>
+          </div>
+
+          <!-- Follow-up Answer Output -->
+          <div class="followup-response-box hidden" id="followUpResponseBox">
+            <div class="response-author">🤖 Sticker Understander:</div>
+            <div class="response-content" id="followUpResponseContent"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div id="toast" class="toast hidden">Copied to clipboard! ✨</div>
+
+  <script src="app.js"></script>
+</body>
+</html>

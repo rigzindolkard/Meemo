@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <circle cx="100" cy="100" r="90" fill="#fee2e2" stroke="#ef4444" stroke-width="4"/>
+  <!-- Torso with simple kurta -->
+  <path d="M 60 175 Q 100 155 140 175 L 145 200 L 55 200 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="100" y1="165" x2="100" y2="195" stroke="#94a3b8" stroke-width="2"/>
+  <!-- Head with exaggerated distressed expression -->
+  <ellipse cx="100" cy="115" rx="35" ry="40" fill="#fed7aa"/>
+  <!-- Big round eyeglasses (Babu Bhaiya trademark) -->
+  <circle cx="85" cy="110" r="14" fill="#ffffff" fill-opacity="0.6" stroke="#0f172a" stroke-width="3"/>
+  <circle cx="115" cy="110" r="14" fill="#ffffff" fill-opacity="0.6" stroke="#0f172a" stroke-width="3"/>
+  <line x1="99" y1="110" x2="101" y2="110" stroke="#0f172a" stroke-width="3"/>
+  <!-- Big shocked round eyes behind glasses -->
+  <circle cx="85" cy="110" r="5" fill="#0f172a"/>
+  <circle cx="84" cy="108" r="1.5" fill="#ffffff"/>
+  <circle cx="115" cy="110" r="5" fill="#0f172a"/>
+  <circle cx="114" cy="108" r="1.5" fill="#ffffff"/>
+  <!-- High curved eyebrows in disbelief -->
+  <path d="M 72 88 Q 85 80 96 90" stroke="#0f172a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <path d="M 128 88 Q 115 80 104 90" stroke="#0f172a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <!-- Big open mouth in disbelief O_O -->
+  <ellipse cx="100" cy="138" rx="10" ry="14" fill="#7f1d1d"/>
+  <ellipse cx="100" cy="132" rx="7" ry="3" fill="#ffffff"/> <!-- upper teeth -->
+  <!-- Classic white side hair / dhoti kurta style -->
+  <path d="M 68 95 Q 60 115 66 128" stroke="#334155" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <path d="M 132 95 Q 140 115 134 128" stroke="#334155" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <!-- Hands holding head in pure headache/shock -->
+  <!-- Left hand -->
+  <path d="M 52 145 C 45 125 55 98 70 95 C 65 105 65 120 62 135 Z" fill="#fbcfe8" stroke="#0f172a" stroke-width="2.5"/>
+  <ellipse cx="64" cy="98" rx="8" ry="12" fill="#fed7aa" stroke="#0f172a" stroke-width="2.5" transform="rotate(-25 64 98)"/>
+  <!-- Right hand -->
+  <path d="M 148 145 C 155 125 145 98 130 95 C 135 105 135 120 138 135 Z" fill="#fbcfe8" stroke="#0f172a" stroke-width="2.5"/>
+  <ellipse cx="136" cy="98" rx="8" ry="12" fill="#fed7aa" stroke="#0f172a" stroke-width="2.5" transform="rotate(25 136 98)"/>
+  <!-- Caption text bubble -->
+  <rect x="25" y="25" width="150" height="28" rx="14" fill="#dc2626"/>
+  <text x="100" y="44" font-family="sans-serif" font-weight="900" font-size="13" fill="#ffffff" text-anchor="middle">DEVA RE DEVA! 🤦‍♂️</text>
+</svg>

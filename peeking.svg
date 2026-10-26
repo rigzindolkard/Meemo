@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <circle cx="100" cy="100" r="90" fill="#fdf4ff" stroke="#d946ef" stroke-width="4"/>
+  <!-- Wall on left side -->
+  <rect x="25" y="20" width="55" height="160" fill="#e2e8f0" stroke="#94a3b8" stroke-width="3"/>
+  <line x1="25" y1="60" x2="80" y2="60" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="50" y1="60" x2="50" y2="100" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="25" y1="100" x2="80" y2="100" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="40" y1="100" x2="40" y2="140" stroke="#cbd5e1" stroke-width="2"/>
+  <line x1="25" y1="140" x2="80" y2="140" stroke="#cbd5e1" stroke-width="2"/>
+  <!-- Peeking cute anime chibi head -->
+  <!-- Hair back -->
+  <circle cx="115" cy="100" r="45" fill="#475569"/>
+  <!-- Face peeking out from behind wall -->
+  <ellipse cx="108" cy="102" rx="36" ry="34" fill="#ffedd5"/>
+  <!-- Big shy cute anime eyes -->
+  <ellipse cx="118" cy="98" rx="12" ry="16" fill="#3b82f6"/>
+  <ellipse cx="118" cy="98" rx="8" ry="12" fill="#1e3a8a"/>
+  <!-- Eye highlights sparkle -->
+  <circle cx="115" cy="92" r="4.5" fill="#ffffff"/>
+  <circle cx="122" cy="104" r="2" fill="#ffffff"/>
+  <!-- Hidden second eye partly behind wall corner -->
+  <ellipse cx="88" cy="98" rx="7" ry="14" fill="#3b82f6"/>
+  <circle cx="86" cy="93" r="2.5" fill="#ffffff"/>
+  <!-- Blushing pink cheeks -->
+  <ellipse cx="122" cy="116" rx="9" ry="5" fill="#f43f5e" fill-opacity="0.4"/>
+  <ellipse cx="87" cy="116" rx="6" ry="4" fill="#f43f5e" fill-opacity="0.4"/>
+  <!-- Shy small mouth -->
+  <path d="M 104 116 Q 108 120 112 116" stroke="#e11d48" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Cute bangs peeking -->
+  <path d="M 80 75 Q 100 85 110 75 Q 125 90 140 75 Q 148 105 145 125" stroke="#334155" stroke-width="4" fill="#475569"/>
+  <!-- Tiny cute paws/hands gripping edge of the wall -->
+  <ellipse cx="81" cy="90" rx="6" ry="10" fill="#fed7aa" stroke="#334155" stroke-width="2"/>
+  <ellipse cx="81" cy="125" rx="6" ry="10" fill="#fed7aa" stroke="#334155" stroke-width="2"/>
+  <!-- Question mark floating -->
+  <text x="140" y="65" font-size="28" fill="#c026d3" font-weight="bold">?</text>
+  <text x="105" y="45" font-family="sans-serif" font-weight="bold" font-size="12" fill="#a21caf">Can I come in? 👉👈</text>
+</svg>
