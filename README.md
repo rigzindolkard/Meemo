@@ -1,4 +1,5 @@
 # 🎭 Sticker Understander
+(deployment link - https://lkwhzr6juz6knbvqxwp26k.streamlit.app)
 
 An AI-powered application that decodes the hidden meaning, emotion, humour, and cultural references behind stickers and memes used in online conversations.
 
