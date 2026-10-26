@@ -1,0 +1,926 @@
+This is the website idea : 
+# Sticker Understander
+
+## Project Overview, Description, Problem Statement, Features, API Integration, and UI/UX Design
+
+## 1. Project Overview
+
+Project Name: Sticker Understander
+
+Technology Stack: Python, Kivy, Sarvam AI APIs, and a vision-capable AI model.
+
+Platform: Android, desktop, and potentially other platforms in the future.
+
+Project Type: AI-powered sticker interpretation and context-aware chat assistant.
+
+Core Idea: An AI application that helps people understand the meaning, humour, emotions, cultural references, and implied tone of stickers shared in online conversations.
+
+Sticker Understander is designed for people who receive stickers on WhatsApp, Discord, Telegram, and other messaging platforms but do not understand what they mean. Instead of simply describing what appears in the image, the application explains what the sticker might communicate in a real conversation.
+
+For example, if someone receives a sticker of a cartoon character dramatically falling to the ground, the application might explain that it represents exaggerated disappointment, embarrassment, defeat, or a humorous reaction, depending on the conversation.
+
+The application can also consider recent chat messages provided by the user to explain why a particular sticker might have been sent in that specific situation.
+
+## 2. Project Description
+
+Sticker Understander is an AI-powered application that converts confusing internet stickers and memes into understandable explanations.
+
+Online conversations increasingly rely on stickers, reaction images, memes, and cartoon characters to express emotions and communicate indirectly. However, understanding these expressions often requires familiarity with internet culture, regional humour, popular characters, social trends, and the context of the conversation.
+
+A sticker that seems meaningless to one person might communicate sarcasm, embarrassment, affection, frustration, or a joke to another.
+
+Sticker Understander addresses this problem by allowing users to import a sticker or image and receive a simple, context-aware explanation.
+
+The application will analyse the visual content of the sticker, identify relevant expressions or objects, interpret its likely emotional tone, and explain its possible meaning in everyday language.
+
+Users can optionally provide recent chat messages to help the AI understand the situation in which the sticker was shared.
+
+The application should distinguish between what is clearly visible in the image and what is inferred from context. It should also explain when a sticker has multiple possible interpretations instead of presenting an uncertain guess as a fact.
+
+The ultimate goal is to make online conversations easier to understand for people who are unfamiliar with a particular sticker, meme, cultural reference, or style of humour.
+
+## 3. Detailed Problem Statement
+
+Digital communication is no longer limited to text messages. People increasingly communicate through stickers, memes, GIFs, reaction images, and expressive cartoon characters.
+
+These visual elements often convey meanings that are difficult to understand without contextual knowledge.
+
+Several problems arise from this form of communication.
+
+### 3.1 Ambiguous meanings
+
+A single sticker may communicate different emotions depending on the situation. A laughing character might indicate genuine amusement, nervousness, embarrassment, sarcasm, or an attempt to hide discomfort.
+
+A simple image description cannot reliably explain these different possibilities.
+
+### 3.2 Cultural and internet references
+
+Many stickers originate from regional jokes, popular films, anime, viral memes, online communities, or local internet culture.
+
+People who are unfamiliar with these references may struggle to understand why a particular sticker is funny or what it represents.
+
+### 3.3 Context-dependent interpretation
+
+The meaning of a sticker frequently depends on the messages that came before it.
+
+For example, a sticker showing a person running away might mean someone wants to escape an awkward situation. In another conversation, it might be a playful reaction to being asked to do something.
+
+Without context, the interpretation may be incomplete or misleading.
+
+### 3.4 Language and communication barriers
+
+People communicating across different languages and cultures may not understand the humour, expressions, or implied meanings behind stickers.
+
+A sticker may contain no text at all and still communicate a culturally specific message.
+
+### 3.5 Misunderstanding social tone
+
+A sticker intended as a joke may be interpreted as rude, dismissive, or offensive. Similarly, a sarcastic reaction may be mistaken for a serious statement.
+
+This can lead to confusion and unnecessary misunderstandings in digital conversations.
+
+### 3.6 Lack of a simple interpretation tool
+
+Most image-description tools focus on identifying objects or describing what is visible. They may not explain the conversational purpose of a sticker or how it could be interpreted in a particular situation.
+
+Proposed solution: Develop Sticker Understander, an AI-powered application that analyses stickers and explains their likely meanings, emotional tone, humour, and contextual relevance in clear, accessible language.
+
+## 4. Target Users
+
+The application is intended for a broad range of users.
+
+### 4.1 People unfamiliar with internet culture
+
+Users who do not understand certain viral memes, reaction stickers, or online expressions can use the application to learn their meanings.
+
+### 4.2 People communicating across cultures
+
+Users interacting with people from different regions, languages, or cultural backgrounds can better understand unfamiliar visual expressions.
+
+### 4.3 Students and young adults
+
+Students who encounter unfamiliar stickers in college groups, online communities, or social conversations can quickly understand the intended joke or reaction.
+
+### 4.4 New internet users
+
+People who are less familiar with modern online communication styles can use the application as a simple guide to digital expressions.
+
+### 4.5 Communities using multiple languages
+
+Users communicating through Hindi, English, Hinglish, and other supported languages can receive explanations in a language they find comfortable.
+
+### 4.6 Anyone confused by a sticker
+
+The primary audience is anyone who has received a sticker and wondered:
+
+- What does this sticker mean?
+- Why is this funny?
+- Is this sarcastic or serious?
+- What emotion does it express?
+- Why would someone send this in our conversation?
+- Is there a hidden joke or cultural reference?
+
+## 5. Core Features
+
+### 5.1 Sticker Import and Analysis
+
+Users should be able to upload or share a sticker image directly into the application.
+
+Supported formats for the initial version can include PNG, JPEG, and static WebP images.
+
+Potential input sources include:
+
+- WhatsApp stickers saved or shared as image files.
+- Telegram stickers exported or shared as files.
+- Discord sticker images and reaction images.
+- Memes downloaded from social media.
+- Images received through other messaging applications.
+
+The application should analyse the imported image and produce a clear explanation of its meaning.
+
+Animated stickers and GIFs can be added in a later version by extracting representative frames for analysis.
+
+### 5.2 Meaning Explanation
+
+The application should explain the sticker in simple language.
+
+Example:
+
+Sticker: A cartoon character hiding behind a wall.
+
+Possible explanation: “This sticker can represent someone who is shy, avoiding attention, or secretly watching a situation. It may be used when someone feels awkward or does not want to get involved.”
+
+The explanation should focus on what the sticker communicates rather than merely listing objects in the image.
+
+### 5.3 Emotion and Tone Detection
+
+The application should identify likely emotional signals, such as:
+
+- Happiness
+- Sadness
+- Anger
+- Embarrassment
+- Confusion
+- Sarcasm
+- Frustration
+- Excitement
+- Affection
+- Playfulness
+- Awkwardness
+- Disappointment
+
+Because stickers can have several interpretations, the application should communicate uncertainty where necessary.
+
+### 5.4 Context-Aware Interpretation
+
+This is one of the application's most important features.
+
+Users can optionally paste recent messages or provide a short description of the conversation in which the sticker appeared.
+
+The AI can then interpret the sticker using both its visual content and the supplied context.
+
+Example conversation:
+
+Person A: “Did you finish the assignment?”
+
+Person B: “I haven't even started.”
+
+Person B sends a sticker showing a cartoon character dramatically collapsing.
+
+Possible explanation:
+
+“The sticker is probably expressing panic or exaggerated despair about the unfinished assignment. The dramatic collapse makes the situation humorous rather than necessarily serious.”
+
+The application should explain why the interpretation fits the context while acknowledging that the sender's actual intention cannot be known with certainty.
+
+### 5.5 Cultural and Meme Reference Explanation
+
+When sufficient evidence is available, the application should explain whether a sticker appears to reference a known meme, fictional character, popular scene, or internet trend.
+
+It should distinguish between a confirmed identification and a possible resemblance.
+
+For example:
+
+“This resembles a reaction meme commonly used to express disbelief. I cannot confidently identify the exact original source from this image alone.”
+
+### 5.6 Multiple Possible Meanings
+
+Some stickers are intentionally ambiguous.
+
+Instead of forcing a single answer, the application should provide a few plausible interpretations and explain what context would make each one more likely.
+
+For example:
+
+- Playful interpretation: The person is jokingly refusing a request.
+- Sarcastic interpretation: The person is pretending to be shocked.
+- Context-dependent interpretation: The sticker may be an inside joke between the people chatting.
+
+### 5.7 Suggested Replies
+
+The application can optionally suggest suitable responses based on the sticker and conversation.
+
+Possible reply categories include:
+
+- Funny
+- Friendly
+- Sarcastic
+- Casual
+- Polite
+- Confused but curious
+
+For example, if a sticker appears to express exaggerated disappointment, the application might suggest a playful response such as:
+
+“Okay, drama queen 😂”
+
+Suggestions should remain optional and should not encourage hostile or inappropriate responses.
+
+### 5.8 Explanation in the User's Preferred Language
+
+Users should be able to choose how they want the explanation delivered.
+
+Possible options include:
+
+- English
+- Hindi
+- Hinglish
+- Other languages supported by the selected AI services
+
+The application should aim to explain the meaning naturally rather than simply translating individual words.
+
+## 6. Use of Sarvam AI APIs and Models
+
+Sarvam AI can provide the language-processing capabilities needed to make Sticker Understander accessible to multilingual users.
+
+However, the application should use the appropriate model for each task. A general language model should not be assumed to support direct image input unless its documentation explicitly confirms that capability.
+
+### 6.1 Sarvam Chat Completion
+
+Suggested model: `sarvam-105b`, subject to current API availability and documentation.
+
+The language model can be used for reasoning over structured visual descriptions, chat context, and user questions.
+
+Potential responsibilities include:
+
+- Explaining the likely meaning of a sticker.
+- Identifying possible emotions and conversational tone from the supplied analysis.
+- Combining the sticker description with recent messages.
+- Explaining jokes in simple language.
+- Producing multiple plausible interpretations.
+- Generating suggested replies.
+- Responding in the user's preferred language.
+
+The application should provide the language model with the output of a vision-capable image-analysis system rather than assuming the text model can inspect images directly.
+
+### 6.2 Sarvam Translate
+
+Sarvam's translation capabilities can support multilingual workflows where appropriate.
+
+Possible uses include:
+
+- Translating explanations into a selected language.
+- Helping users understand text embedded in stickers.
+- Supporting communication when the conversation and preferred explanation language differ.
+
+Translation should be optional. If the main language model can already produce a good explanation directly in the desired language, an additional translation call may not be necessary.
+
+### 6.3 Sarvam Vision and OCR
+
+Sarvam's vision-related document intelligence capabilities may be useful for extracting text from stickers, screenshots, and memes when supported by the relevant endpoint.
+
+However, OCR alone cannot reliably determine humour, emotional tone, or the full meaning of a sticker.
+
+For general cartoon, meme, and sticker interpretation, the project should integrate a separate vision-capable model that supports image understanding.
+
+This model can identify visible characters, facial expressions, objects, text, and relevant visual relationships.
+
+The language model can then use that information to produce the final explanation.
+
+### 6.4 Sarvam Speech Services — Optional Extension
+
+Speech functionality is not essential for the first version, but it could make the application more interactive.
+
+Possible extensions include:
+
+- Speech-to-text: Let users verbally ask what a sticker means.
+- Text-to-speech: Read the explanation aloud.
+- Voice-based interaction: Allow users to ask follow-up questions about a sticker.
+
+Sarvam's speech models can be evaluated for these capabilities if the relevant APIs are available and suitable for the target languages.
+
+### 6.5 Recommended API Strategy
+
+The project should avoid making unnecessary API calls.
+
+A practical workflow is:
+
+1. Analyse the sticker using a vision-capable model.
+2. Extract visible text when needed.
+3. Send the visual description, optional chat context, and user question to Sarvam's language model.
+4. Generate a structured explanation.
+5. Translate the response only if required.
+6. Display the result in the Kivy application.
+
+This division of responsibilities improves clarity and makes the application easier to maintain.
+
+## 7. AI Agent Architecture
+
+Sticker Understander can be designed as a multi-stage AI workflow. These stages can be called logical agents, although they do not need to be separate, prebuilt Sarvam products.
+
+Each agent has a specific responsibility.
+
+### Agent 1: Sticker Vision Analyst
+
+Purpose: Understand what is visibly present in the sticker.
+
+Responsibilities:
+
+- Identify characters, objects, and scenes.
+- Describe facial expressions and body language.
+- Detect visible text when possible.
+- Identify important visual details.
+- Distinguish observations from uncertain visual interpretations.
+
+Example output:
+
+“A cartoon character is hiding behind a wall and looking sideways with a nervous expression.”
+
+### Agent 2: Emotion and Tone Analyst
+
+Purpose: Identify plausible emotional signals from the visual description.
+
+Responsibilities:
+
+- Identify likely emotions.
+- Detect exaggerated reactions.
+- Suggest possible tones, such as sarcasm, embarrassment, or playful frustration.
+- Provide confidence or uncertainty indicators.
+
+Example output:
+
+“Likely tones: awkwardness, shyness, or playful avoidance.”
+
+### Agent 3: Context Interpreter
+
+Purpose: Combine the sticker analysis with the supplied conversation.
+
+Responsibilities:
+
+- Examine recent messages provided by the user.
+- Determine which interpretations fit the situation.
+- Explain the likely conversational purpose.
+- Avoid making unsupported claims about the sender's intention.
+
+Example output:
+
+“Given that the conversation is about an uncomfortable question, the sticker may be a playful way of avoiding the topic.”
+
+### Agent 4: Meme and Cultural Reference Analyst
+
+Purpose: Identify possible meme origins or cultural references.
+
+Responsibilities:
+
+- Recognise familiar visual patterns when possible.
+- Explain common meme usage.
+- Distinguish likely references from confirmed identification.
+- Indicate when the original source is unknown.
+
+This stage may use a vision model and, where appropriate, a verified search or reference database.
+
+### Agent 5: Explanation Generator
+
+Purpose: Turn the preceding analysis into a simple, useful answer.
+
+Responsibilities:
+
+- Explain the likely meaning.
+- Summarise the emotion and tone.
+- Explain contextual relevance.
+- Provide alternative interpretations when needed.
+- Generate optional replies.
+- Use the user's preferred language.
+
+For the MVP, several of these stages can be combined into one or two model calls to reduce latency and API costs.
+
+## 8. Recommended Output Format
+
+The application should return a consistent explanation rather than an unstructured block of text.
+
+Example:
+
+Sticker Meaning: Playful avoidance or nervousness.
+
+What is visible: A cartoon character is hiding behind a wall and looking sideways.
+
+What it probably means: The sticker may represent someone who is shy, embarrassed, or trying to avoid a situation.
+
+Emotional tone: Awkward, playful, slightly nervous.
+
+In your conversation: Based on the messages provided, it may be a humorous reaction to an uncomfortable question.
+
+Other possible meanings: It could also indicate curiosity or secretly observing a situation.
+
+Confidence: Moderate. The interpretation depends on the conversation and the sender's usual communication style.
+
+Suggested reply: “Why are you hiding? 😂”
+
+The application should make clear that the visual description is based on observable content, while the meaning and intention are interpretations.
+
+## 9. Context-Aware Prompt Design
+
+The quality of the application's interpretation depends heavily on how the AI is instructed.
+
+The system should be designed to avoid overconfident conclusions and unsupported claims.
+
+### Suggested System Prompt
+
+You are Sticker Understander, an assistant that helps people understand stickers, memes, reaction images, and visual expressions used in online conversations.
+
+Your task is to explain what a sticker might mean in simple, natural language.
+
+You will receive a description of the sticker's visual content, optional text extracted from the image, and optional recent conversation messages.
+
+Follow these rules:
+
+1. Describe what is visibly present before interpreting its meaning.
+2. Explain the likely emotion, tone, humour, or conversational purpose.
+3. Use the supplied conversation only when it is available.
+4. Explain why a particular interpretation fits the context.
+5. Provide alternative interpretations when the meaning is ambiguous.
+6. Do not claim to know the sender's actual intention.
+7. Do not invent a meme origin or identify a character without sufficient evidence.
+8. Clearly distinguish visible facts from possible interpretations.
+9. Use simple, conversational language.
+10. Respond in the user's selected language.
+11. If the evidence is insufficient, say so rather than inventing an explanation.
+12. Suggest a reply only when requested or when the feature is enabled.
+
+Return the result in a structured format containing:
+
+- Visual description
+- Most likely meaning
+- Emotional tone
+- Contextual interpretation
+- Alternative meanings
+- Confidence level
+- Optional suggested reply
+
+### Context Input Format
+
+The application can combine the relevant information into a request such as:
+
+Sticker description: A cartoon character is lying on the floor with a dramatic expression.
+
+Recent chat context: The user said they had a difficult exam the next morning.
+
+User question: What does this sticker mean here?
+
+Preferred language: Hinglish.
+
+The AI should use this information to generate an explanation that fits the situation rather than returning a generic description of the image.
+
+## 10. UI/UX Design
+
+The interface should feel modern, friendly, visually engaging, and easy to use.
+
+The primary user journey should be simple: import a sticker, optionally add context, and receive an explanation.
+
+### 10.1 Home Screen
+
+The home screen should include:
+
+- Application logo and name.
+- A welcoming heading, such as “Confused by a sticker?”
+- A prominent “Upload Sticker” button.
+- An option to paste or share an image.
+- A text field for optional chat context.
+- A language selector.
+- A button labelled “Explain This Sticker.”
+- Recently analysed stickers, if the user chooses to retain history.
+
+The design should not overwhelm users with settings before they have analysed their first sticker.
+
+### 10.2 Sticker Preview Screen
+
+After the user selects an image, the application should show:
+
+- A preview of the sticker.
+- The detected image format.
+- A remove or replace option.
+- An optional field for recent chat messages.
+- A toggle for context-aware analysis.
+- A clear action button to start analysis.
+
+The user should be able to analyse a sticker without supplying any conversation context.
+
+### 10.3 Results Screen
+
+The results screen should present the explanation in visually distinct sections.
+
+Suggested layout:
+
+Top section: Sticker preview and short title.
+
+Meaning card: The most likely interpretation in one or two sentences.
+
+Emotion tags: For example, “Awkward,” “Funny,” or “Sarcastic.”
+
+Context card: An explanation of how the sticker relates to the supplied messages.
+
+Alternative meanings: A collapsible section showing other possible interpretations.
+
+Reply suggestions: Optional responses that the user can copy.
+
+Actions: Copy explanation, analyse another sticker, or ask a follow-up question.
+
+### 10.4 Follow-Up Questions
+
+Users should be able to ask questions such as:
+
+- “Explain it in simpler words.”
+- “Why is this funny?”
+- “What does it mean in Hinglish?”
+- “Is it sarcastic?”
+- “Give me another possible meaning.”
+- “What can I reply?”
+
+The application should retain the current sticker analysis during the follow-up interaction so the user does not need to upload the image again.
+
+### 10.5 Visual Style
+
+Recommended design direction:
+
+- A clean, modern interface.
+- Rounded cards and buttons.
+- Clear typography.
+- Subtle animations.
+- A dark mode and light mode.
+- A colourful but accessible accent palette.
+- Friendly illustrations and empty-state messages.
+- Loading indicators that explain what the application is doing.
+
+For example, the loading screen could display short stages:
+
+“Looking at the sticker…”
+
+“Understanding the expression…”
+
+“Connecting it with your context…”
+
+“Preparing your explanation…”
+
+These stages should reflect the actual processing pipeline rather than implying that an operation has completed when it has not.
+
+## 11. Integration with WhatsApp, Discord, and Other Chat Platforms
+
+The project should support different messaging platforms without assuming that every platform exposes the same capabilities.
+
+### 11.1 WhatsApp
+
+For the initial version, users should be able to:
+
+- Save or export a sticker where supported.
+- Share an image into Sticker Understander.
+- Import a sticker file through the file picker.
+- Copy recent chat messages into the context field when they want contextual analysis.
+
+A direct integration with private personal WhatsApp chats should not be assumed. WhatsApp's official business APIs are not a universal interface for reading an individual's personal conversations or sticker collection.
+
+The MVP should therefore focus on explicit user-driven importing and sharing.
+
+Exact sticker-sharing behaviour can differ by operating system and file format, so it should be tested on the target devices.
+
+### 11.2 Discord
+
+The application can support Discord through two approaches.
+
+Approach A: Import into the Kivy application
+
+Users save or share a sticker image and upload it to Sticker Understander.
+
+Approach B: Discord bot integration
+
+A future Discord bot could allow users to submit a sticker or image through an explicit command.
+
+The bot would analyse the supplied image and return the explanation in the channel or as a private response, depending on its configuration.
+
+This requires a separate bot service, appropriate Discord permissions, and compliance with the platform's API rules. It is not automatically provided by the Kivy application.
+
+### 11.3 Telegram
+
+Users can import stickers or images into the application.
+
+A future Telegram bot could accept a sticker and return an explanation directly in Telegram, provided the required bot API capabilities and sticker formats are supported.
+
+### 11.4 General Chat Compatibility
+
+The application should not depend on one messaging platform.
+
+Its core feature should be the ability to interpret a user-supplied sticker image, regardless of where that image originated.
+
+This makes the application useful even when direct platform integrations are unavailable.
+
+## 12. Technical Architecture
+
+A practical architecture separates the user interface, image processing, AI services, and application logic.
+
+### Frontend: Kivy
+
+Kivy will be used to develop the mobile and desktop interface.
+
+Responsibilities:
+
+- Image import and preview.
+- User input and context fields.
+- Language selection.
+- Displaying AI-generated explanations.
+- Managing the analysis and follow-up screens.
+- Handling loading states and errors.
+
+### Backend and Application Logic
+
+The application logic will coordinate the analysis pipeline.
+
+Responsibilities:
+
+- Validate imported images.
+- Prepare image data for the selected vision model.
+- Obtain a visual description.
+- Prepare the contextual prompt.
+- Call the Sarvam language model.
+- Validate the model response.
+- Present the final explanation.
+
+A lightweight Python backend can be introduced if the project later needs shared sessions, secure service credentials, user accounts, or chat-platform integrations.
+
+### AI Services
+
+The application may use:
+
+- A vision-capable model for sticker image understanding.
+- Sarvam Chat Completion for contextual reasoning and explanation.
+- Sarvam Translate when a separate translation step is useful.
+- Optional Sarvam speech services for voice interaction.
+
+The final choice of models should be based on current documentation, image-input support, quality, latency, cost, and language coverage.
+
+### Data Flow
+
+1. The user imports a sticker.
+2. The application validates and previews the image.
+3. The user optionally provides recent conversation messages.
+4. A vision-capable model analyses the image.
+5. The application combines the visual analysis with the supplied context.
+6. Sarvam's language model generates a structured explanation.
+7. The application validates the response.
+8. The results screen displays the meaning, tone, alternatives, and optional replies.
+
+### Suggested Project Folder Structure
+
+```
+sticker_understander/
+│
+├── main.py
+├── requirements.txt
+├── README.md
+│
+├── assets/
+│   ├── icons/
+│   ├── illustrations/
+│   └── fonts/
+│
+├── screens/
+│   ├── home_screen.py
+│   ├── preview_screen.py
+│   ├── result_screen.py
+│   └── history_screen.py
+│
+├── services/
+│   ├── image_service.py
+│   ├── vision_service.py
+│   ├── sarvam_service.py
+│   ├── translation_service.py
+│   └── context_service.py
+│
+├── prompts/
+│   └── sticker_interpretation.txt
+│
+├── utils/
+│   ├── image_validation.py
+│   ├── response_parser.py
+│   └── error_handler.py
+│
+└── tests/
+    ├── test_image_validation.py
+    └── test_response_parser.py
+```
+
+The folder structure can be simplified for a weekend prototype.
+
+### Important Implementation Considerations
+
+- Use asynchronous requests or background tasks so the Kivy interface does not freeze while an image is being analysed.
+- Store API credentials securely on the backend or in an appropriate development secret store. Do not hard-code production secrets into a distributed client application.
+- Validate image types and file sizes before processing.
+- Handle network failures, timeouts, and invalid AI responses.
+- Avoid sending entire conversations when only a few relevant messages are needed.
+- Do not retain private chat context or uploaded images unnecessarily.
+- Ensure that the application does not claim that an image was analysed successfully if the request failed.
+
+## 13. Privacy, Safety, and Reliability
+
+Sticker Understander may process personal images and private conversation snippets. Privacy should therefore be part of the design from the beginning.
+
+### Privacy
+
+- Users should choose which sticker or image to upload.
+- Contextual analysis should be optional.
+- Explain when content is sent to an external AI service.
+- Avoid collecting or retaining complete chat histories.
+- Provide a way to clear locally stored analysis history.
+- Do not access private messaging accounts without explicit authorisation and appropriate platform support.
+
+### Reliability
+
+The application should avoid presenting interpretations as certain facts.
+
+A sticker may have a different meaning depending on the relationship between the people chatting, their previous interactions, or their shared cultural references.
+
+The AI should therefore use phrases such as:
+
+- “This probably means…”
+- “In this context, it may suggest…”
+- “Another possible interpretation is…”
+- “I cannot confidently identify the original meme.”
+
+### Respectful Interpretation
+
+The application should explain potentially offensive or sensitive content neutrally and avoid making unsupported judgments about the sender or recipient.
+
+It should distinguish between interpreting the content of a sticker and making assumptions about a person's personality, beliefs, or intentions.
+
+## 14. MVP and Future Development
+
+The project should begin with a realistic minimum viable product (MVP).
+
+### MVP: First Working Version
+
+The first version should include:
+
+1. A Kivy interface for importing a sticker.
+2. Support for static PNG, JPEG, and WebP images.
+3. Integration with a vision-capable model.
+4. Integration with Sarvam Chat Completion.
+5. An optional conversation-context field.
+6. A clear explanation of likely meaning and emotional tone.
+7. Alternative interpretations when the meaning is ambiguous.
+8. English and Hinglish explanations, where supported.
+9. Loading indicators and error handling.
+10. A clean results screen.
+
+### Future Version 1
+
+Potential improvements:
+
+- Hindi and additional language support.
+- Suggested replies.
+- Follow-up questions about the same sticker.
+- A history of recently analysed stickers.
+- Improved meme-reference identification.
+- More detailed context-aware analysis.
+
+### Future Version 2
+
+Potential improvements:
+
+- Animated WebP and GIF analysis.
+- Discord bot integration.
+- Telegram bot integration.
+- Improved mobile share workflows.
+- Voice-based questions and spoken explanations.
+- User-customisable explanation styles.
+
+### Future Version 3
+
+Potential improvements:
+
+- Personalised explanations based on user-selected preferences.
+- A searchable collection of previously analysed stickers.
+- Better handling of regional humour and internet slang.
+- Community-contributed explanations with appropriate moderation.
+- More sophisticated multimodal reasoning.
+
+These features should be prioritised based on user feedback, API feasibility, and development time.
+
+## 15. Success Criteria
+
+The project should be evaluated on whether it actually helps users understand stickers, rather than simply whether it produces fluent AI responses.
+
+Useful evaluation criteria include:
+
+Interpretation quality: Does the explanation capture the likely meaning of the sticker?
+
+Contextual relevance: Does the interpretation improve when recent chat messages are provided?
+
+Uncertainty calibration: Does the application acknowledge ambiguous or unfamiliar stickers?
+
+Language quality: Are explanations natural and easy to understand in the selected language?
+
+Latency: Can the application return results quickly enough for normal conversations?
+
+Usability: Can a new user import a sticker and understand the result without assistance?
+
+Privacy: Does the application minimise the collection and retention of personal information?
+
+Robustness: Does it handle unsupported images, failed API calls, and malformed responses gracefully?
+
+A small user study could ask participants to rate the clarity, usefulness, and contextual accuracy of the explanations.
+
+## 16. Antigravity Development Prompt
+
+The following prompt can be used as a starting point when building the project in Antigravity.
+
+Project: Sticker Understander
+
+Build a modern, cross-platform Python application using Kivy called Sticker Understander.
+
+The application helps users understand stickers, reaction images, and memes received on WhatsApp, Discord, Telegram, and other messaging platforms.
+
+The primary goal is to explain the likely meaning, humour, emotional tone, and contextual relevance of a sticker.
+
+### Core Requirements
+
+1. Build a polished, responsive Kivy interface suitable for desktop and mobile layouts.
+2. Create a home screen with an image-upload button, sticker preview, optional context field, language selector, and analysis button.
+3. Support PNG, JPEG, and static WebP images in the initial version.
+4. Integrate a vision-capable image-analysis model to identify the sticker's visual content.
+5. Integrate Sarvam Chat Completion using a currently supported model, such as `sarvam-105b` where available, to explain the visual analysis and optional conversation context.
+6. Do not assume that the Sarvam text model supports direct image input.
+7. Keep the vision model and language model as separate services so either can be replaced independently.
+8. Generate a structured response containing the visual description, likely meaning, emotional tone, contextual interpretation, alternative meanings, confidence, and optional suggested reply.
+9. Let users ask follow-up questions about the same sticker without uploading it again.
+10. Include English and Hinglish as initial explanation options, with additional languages where supported.
+11. Use background tasks or asynchronous requests so API calls do not freeze the interface.
+12. Include proper loading states, error handling, input validation, and retry options.
+13. Keep API keys out of the distributed client application.
+14. Make contextual analysis optional and avoid storing private chat content unnecessarily.
+15. Use modular Python files for screens, AI services, image processing, prompts, and utilities.
+
+### UI/UX Requirements
+
+Create a visually engaging, modern interface with rounded cards, clear typography, accessible contrast, subtle animations, and light and dark themes.
+
+The results screen should display:
+
+- Sticker preview.
+- Most likely meaning.
+- Emotion and tone tags.
+- Contextual explanation.
+- Alternative interpretations.
+- Optional suggested replies.
+- Buttons to copy the explanation, ask a follow-up question, and analyse another sticker.
+
+The interface should feel like a helpful chat companion rather than a technical image-analysis tool.
+
+### AI Behaviour Requirements
+
+The AI must distinguish between visible observations and inferred meanings.
+
+It must not claim to know the sender's actual intention. It should explain ambiguity, avoid inventing meme origins, and provide alternative interpretations when appropriate.
+
+When context is supplied, the AI should explain how the conversation affects the interpretation. When context is absent, it should give a general interpretation and clearly indicate uncertainty.
+
+### Development Approach
+
+First build a working MVP with image import, vision analysis, Sarvam integration, context-aware explanations, and the results interface.
+
+Then improve the design and add follow-up questions.
+
+Keep the code modular, document setup instructions in README.md, provide a requirements.txt file, and include clear instructions for configuring API credentials.
+
+Do not implement fake integrations or hard-code example responses as if they were real AI results. If a required API is unavailable, create a clearly labelled interface for configuring the integration and document what is needed to enable it.
+
+## 17. Official Documentation and Resources
+
+Use the current official documentation to verify endpoints, authentication, supported models, request formats, and pricing before implementation.
+
+- Sarvam AI: [https://www.sarvam.ai/](https://www.sarvam.ai/?utm_source=chatgpt.com)
+- Sarvam AI documentation: [https://docs.sarvam.ai/](https://docs.sarvam.ai/?utm_source=chatgpt.com)
+- Kivy documentation: [https://kivy.org/doc/stable/](https://kivy.org/doc/stable/?utm_source=chatgpt.com)
+- Discord Developer Portal: [https://discord.com/developers/docs](https://discord.com/developers/docs?utm_source=chatgpt.com)
+- Telegram Bot API: [https://core.telegram.org/bots/api](https://core.telegram.org/bots/api?utm_source=chatgpt.com)
+- WhatsApp Business Platform: [https://developers.facebook.com/docs/whatsapp/](https://developers.facebook.com/docs/whatsapp/?utm_source=chatgpt.com)
+
+These resources should guide the implementation of the AI services and any future messaging-platform integrations.
+
+## 18. Final Project Summary
+
+Sticker Understander is an AI-powered application that helps people understand the meaning behind stickers and memes used in everyday online conversations.
+
+Its key innovation is combining visual analysis with optional conversation context. Rather than merely describing a sticker, the application explains what it might communicate, why it could be funny, what emotional tone it conveys, and how the surrounding conversation changes its interpretation.
+
+By combining Kivy for the interface, a vision-capable model for image understanding, and Sarvam AI for multilingual reasoning and explanation, the project can become a practical tool for making digital communication more accessible.
+
+The first version should focus on one clear experience: upload a sticker, optionally provide context, and understand what it probably means.
+
+Direct WhatsApp and Discord integrations, animated stickers, voice interaction, and advanced cultural-reference analysis can be developed after the core experience works reliably.
