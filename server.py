@@ -2,7 +2,7 @@ import os
 import json
 import base64
 from pathlib import Path
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 import urllib.request
 import urllib.error
 
@@ -402,9 +402,9 @@ Return your structured JSON analysis following the system instructions."""
 
 
 def run():
-    port = 3000
+    port = int(os.environ.get("PORT", 3000))
     server_address = ("", port)
-    httpd = HTTPServer(server_address, StickerAppHandler)
+    httpd = ThreadingHTTPServer(server_address, StickerAppHandler)
     print(f"Sticker Understander Web Server running at http://localhost:{port}")
     httpd.serve_forever()
 
