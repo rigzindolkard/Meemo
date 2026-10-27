@@ -241,16 +241,17 @@ def generate_intelligent_analysis(sticker_name, user_context, language, custom_d
         }
     }
 
-    # Match preset or default fallback
+    # Match preset only if explicit preset key was chosen
     matched_key = None
-    desc_lower = desc.lower()
-    if "cat" in desc_lower or "faint" in desc_lower or "sleep" in desc_lower or "orange" in desc_lower:
+    if sticker_name in presets:
+        matched_key = sticker_name
+    elif sticker_name == "cat":
         matched_key = "dramatic_cat"
-    elif "dog" in desc_lower or "cheem" in desc_lower or "shiba" in desc_lower:
+    elif sticker_name == "doge":
         matched_key = "cheems_doge"
-    elif "hera" in desc_lower or "pheri" in desc_lower or "babu" in desc_lower or "head" in desc_lower or "shock" in desc_lower:
+    elif sticker_name == "herapheri":
         matched_key = "hera_pheri"
-    elif "peek" in desc_lower or "shy" in desc_lower or "wall" in desc_lower or "hide" in desc_lower or "behind" in desc_lower:
+    elif sticker_name == "peeking":
         matched_key = "peeking_shy"
 
     if matched_key and matched_key in presets:

@@ -185,16 +185,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const reader = new FileReader();
     reader.onload = (event) => {
       const name = overrideName || file.name;
+      const cleanTitle = name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ").replace(/\b\w/g, c => c.toUpperCase());
       state.sticker = {
         type: "upload",
         presetKey: "custom",
-        title: "Uploaded Custom Sticker",
-        desc: "Custom uploaded sticker image",
+        title: cleanTitle || "Uploaded Custom Sticker",
+        desc: `Uploaded sticker image '${cleanTitle}'`,
         src: event.target.result,
         filename: name
       };
 
-      // Deselect preset buttons
+      // Deselect all preset cards
       presetCards.forEach(c => c.classList.remove("active"));
 
       // Show in dropzone preview
@@ -211,8 +212,14 @@ document.addEventListener("DOMContentLoaded", () => {
     fileInput.value = "";
     previewContainer.classList.add("hidden");
     dropContent.classList.remove("hidden");
-    // revert to first preset
-    presetCards[0].click();
+    state.sticker = {
+      type: "empty",
+      presetKey: "custom",
+      title: "No Sticker Selected",
+      desc: "",
+      src: "",
+      filename: ""
+    };
   });
 
   // Multi-Agent Pipeline Animation Runner

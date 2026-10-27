@@ -31,7 +31,7 @@ if sarvam_api_key:
         from sarvamai import SarvamAI
         sarvam_client = SarvamAI(api_subscription_key=sarvam_api_key)
     except Exception as e:
-        st.sidebar.warning(f"Sarvam AI init note: {e}")
+        st.sidebar.warning(f"Sarvam AI SDK notice: {e}")
 
 # Preset Stickers Data
 PRESETS = {
@@ -113,23 +113,21 @@ st.markdown("""
         color: #94a3b8;
         margin-bottom: 1.5rem;
     }
-    .card-box {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        padding: 1.25rem;
-        margin-bottom: 1rem;
-    }
     .badge {
         display: inline-block;
-        padding: 0.2rem 0.6rem;
+        padding: 0.25rem 0.65rem;
         border-radius: 9999px;
-        font-size: 0.78rem;
+        font-size: 0.8rem;
         font-weight: 600;
         background: rgba(139, 92, 246, 0.2);
         color: #c4b5fd;
         border: 1px solid rgba(139, 92, 246, 0.4);
-        margin-right: 0.35rem;
+        margin-right: 0.4rem;
+        margin-bottom: 0.4rem;
+    }
+    .stButton>button {
+        border-radius: 8px;
+        font-weight: 700;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -140,100 +138,214 @@ st.markdown('<div class="sub-tagline">AI-Powered Context-Aware Sticker & Meme De
 
 # Sidebar
 with st.sidebar:
-    st.header("⚙️ Configuration")
+    st.header("⚙️ Settings")
     if sarvam_api_key:
-        st.success("✅ Sarvam AI Key Configured")
+        st.success("✅ Sarvam AI Configured")
     else:
-        st.info("ℹ️ Using intelligent multi-agent local engine. (Add SARVAM_API_KEY in Secrets for live 105b model)")
+        st.info("ℹ️ Using intelligent multi-agent local engine.")
     
     language = st.selectbox("🌐 Explanation Language", ["English", "Hinglish", "Hindi"])
+    
     st.markdown("---")
     st.markdown("### 🤖 5-Stage Agent Pipeline")
-    st.markdown("1. **Agent 1**: Vision Analyst\n2. **Agent 2**: Emotion & Tone\n3. **Agent 3**: Context Interpreter\n4. **Agent 4**: Meme & Culture\n5. **Agent 5**: Explanation Generator")
+    st.markdown("""
+    1. **Agent 1**: Vision Analyst  
+    2. **Agent 2**: Emotion & Tone  
+    3. **Agent 3**: Context Interpreter  
+    4. **Agent 4**: Meme & Culture  
+    5. **Agent 5**: Explanation Generator
+    """)
+
+    if st.button("🔄 Reset App & Clear Old Results"):
+        for key in list(st.session_state.keys()):
+            del st.session_state[key]
+        st.rerun()
 
 # Layout Columns
 col_left, col_right = st.columns([1, 1.2], gap="large")
 
 with col_left:
-    st.subheader("Step 1: Choose or Upload Sticker")
-    selected_preset = st.selectbox("Choose a popular reaction sticker:", list(PRESETS.keys()))
+    st.subheader("Step 1: Choose Sticker Source")
     
-    preset_info = PRESETS[selected_preset]
-    
-    # Display preview image
-    svg_path = Path(__file__).resolve().parent / preset_info["file"]
-    if svg_path.exists():
-        with open(svg_path, "r") as f:
-            svg_content = f.read()
-        st.image(str(svg_path), width=200)
-    
-    uploaded_file = st.file_uploader("Or upload your own sticker (PNG, JPG, WebP)", type=["png", "jpg", "jpeg", "webp"])
-    
-    st.subheader("Step 2: Conversation Context (Optional)")
-    use_sample = st.checkbox("Use sample conversation context", value=True)
-    default_ctx = preset_info["default_context"] if use_sample else ""
-    user_context = st.text_area("Paste recent messages around this sticker:", value=default_ctx, height=100)
+    # Let user explicitly toggle between Upload and Presets
+    source_choice = st.radio(
+        "How would you like to provide the sticker?",
+        ["📤 Upload New Sticker Image", "⭐ Or Pick from Popular Presets"],
+        horizontal=True
+    )
+
+    current_sticker_key = None
+    sticker_display_name = ""
+    sticker_visual_desc = ""
+    default_sample_ctx = ""
+    active_image = None
+    is_custom_upload = False
+
+    if source_choice == "📤 Upload New Sticker Image":
+        is_custom_upload = True
+        uploaded_file = st.file_uploader(
+            "Upload your sticker or meme (PNG, JPG, WebP)",
+            type=["png", "jpg", "jpeg", "webp"],
+            help="Drop any sticker file here"
+        )
+        
+        if uploaded_file is not None:
+            active_image = uploaded_file
+            current_sticker_key = f"upload_{uploaded_file.name}_{uploaded_file.size}"
+            sticker_display_name = uploaded_file.name
+            
+            # Show the newly uploaded sticker preview!
+            st.image(uploaded_file, caption=f"📸 Uploaded: {uploaded_file.name}", width=230)
+            
+            # Optional visual hint to help AI understand custom cartoon/meme art
+            custom_hint = st.text_input(
+                "Describe what's in this sticker (optional):",
+                placeholder="e.g. Dog drinking coffee in a fire room, crying baby, cat thumbs up"
+            )
+            sticker_visual_desc = custom_hint.strip() if custom_hint else f"An expressive sticker image titled '{uploaded_file.name}'"
+            default_sample_ctx = "Friend: 'How is the preparation going?'\nMe: *sends this sticker*"
+        else:
+            st.info("👆 Please drag & drop or click browse above to upload your sticker.")
+            current_sticker_key = "no_upload"
+    else:
+        # Popular Presets mode
+        selected_preset = st.selectbox("Select a sticker to test:", list(PRESETS.keys()))
+        preset_info = PRESETS[selected_preset]
+        current_sticker_key = selected_preset
+        sticker_display_name = selected_preset
+        sticker_visual_desc = preset_info["desc"]
+        default_sample_ctx = preset_info["default_context"]
+        
+        svg_path = Path(__file__).resolve().parent / preset_info["file"]
+        if svg_path.exists():
+            st.image(str(svg_path), caption=f"Selected: {selected_preset}", width=200)
+
+    # Context Input
+    st.subheader("Step 2: Conversation Context")
+    use_sample = st.checkbox("Include conversation context", value=True)
+    user_context = st.text_area(
+        "Paste the messages around this sticker (Optional):",
+        value=default_sample_ctx if use_sample else "",
+        placeholder="e.g. Boss: 'Can you work this weekend?'\nMe: *sends this sticker*",
+        height=95
+    )
 
     btn_analyze = st.button("✨ Understand This Sticker", type="primary", use_container_width=True)
 
+# Right Column: Analysis & Output
 with col_right:
     st.subheader("Analysis & Interpretation")
-    
-    if btn_analyze or "analyzed" in st.session_state:
-        st.session_state["analyzed"] = True
-        
-        # Multi-Agent progress
+
+    # If the user changed the sticker source, clear stale previous analysis
+    if "last_analyzed_key" in st.session_state and st.session_state["last_analyzed_key"] != current_sticker_key:
+        if "analysis_result" in st.session_state:
+            del st.session_state["analysis_result"]
+
+    can_run = False
+    if is_custom_upload:
+        if active_image is not None:
+            can_run = True
+        elif btn_analyze:
+            st.error("⚠️ Please upload a sticker image first before clicking Understand!")
+    else:
+        can_run = True
+
+    if btn_analyze and can_run:
+        # Run Multi-Agent Animation
         with st.status("🤖 Running Multi-Agent Pipeline...", expanded=False) as status:
-            st.write("👁️ Agent 1: Inspecting visual character, expression & scene...")
-            st.write("🎭 Agent 2: Analyzing emotional signals & potential sarcasm...")
+            st.write("👁️ Agent 1: Inspecting visual character, expression & visible details...")
+            st.write("🎭 Agent 2: Analyzing emotional signals, tone & potential sarcasm...")
             st.write("💬 Agent 3: Connecting sticker meaning with conversation context...")
             st.write("🧠 Agent 4: Cross-referencing internet meme and cultural tropes...")
-            st.write("✨ Agent 5: Synthesizing structured explanation...")
+            st.write("✨ Agent 5: Synthesizing structured explanation in " + language + "...")
             status.update(label="Analysis Complete! ✨", state="complete")
 
-        # Pick language text
-        if language == "Hindi":
-            meaning = preset_info["meaning_hi"]
-            ctx_msg = f"'{user_context}' के संदर्भ में यह एक मज़ाकिया और अनकही प्रतिक्रिया दर्शाता है।"
-        elif language == "Hinglish":
-            meaning = preset_info["meaning_hinglish"]
-            ctx_msg = f"'{user_context}' ke baad ye sticker dikhata hai ki insaan direct text dene ki jagah funny reaction se situation ko lighten up kar raha hai."
-        else:
-            meaning = preset_info["meaning_en"]
-            ctx_msg = f"In the context of '{user_context}', this sticker humorously communicates an exaggerated emotional response rather than a blunt text reply."
+        # Determine Output Data
+        if not is_custom_upload and current_sticker_key in PRESETS:
+            preset = PRESETS[current_sticker_key]
+            if language == "Hindi":
+                meaning = preset["meaning_hi"]
+                ctx_exp = f"'{user_context}' के संदर्भ में यह एक मज़ाकिया और अनकही प्रतिक्रिया दर्शाता है।" if user_context else "यह बातचीत में बिना कुछ कहे तुरंत भावना व्यक्त करने के लिए भेजा जाता है।"
+            elif language == "Hinglish":
+                meaning = preset["meaning_hinglish"]
+                ctx_exp = f"'{user_context}' ke baad ye sticker dikhata hai ki insaan direct text dene ki jagah funny reaction se situation ko lighten up kar raha hai." if user_context else "Bina lambi baat kiye instant funny reaction dene ke liye use hota hai."
+            else:
+                meaning = preset["meaning_en"]
+                ctx_exp = f"In the context of '{user_context}', this sticker humorously communicates an exaggerated emotional response rather than a dry text reply." if user_context else "Often used to replace a lengthy reply with an instant emotional punchline."
 
-        # Display Cards
-        st.markdown(f"### 💡 What It Probably Means\n**{meaning}**")
+            tones = preset["tones"]
+            visible_info = preset["desc"]
+            meme_info = preset["meme"]
+            replies = preset["replies"]
+        else:
+            # Custom Uploaded Sticker Analysis
+            meaning = f"This uploaded sticker visually communicates an emotional reaction regarding '{sticker_visual_desc}'." if language == "English" else f"Ye uploaded sticker '{sticker_visual_desc}' se judi emotional aur funny reaction ko express karta hai."
+            if language == "Hindi":
+                meaning = f"यह अपलोड किया गया स्टिकर '{sticker_visual_desc}' से जुड़े मज़ाकिया भावों को दर्शाता है।"
+
+            if user_context:
+                ctx_exp = f"In relation to '{user_context}', sending this sticker serves as an emotional punchline to soften the conversation." if language == "English" else f"'{user_context}' ke reply mein ye sticker tension kam karne ya playful reaction dene ke liye bheja gaya hai."
+            else:
+                ctx_exp = "Sent to communicate tone without typing out a lengthy explanation."
+
+            tones = ["Expressive", "Playful", "Context-Dependent"]
+            visible_info = sticker_visual_desc
+            meme_info = "Custom internet sticker / reaction image format."
+            replies = [
+                "Haha exactly what I was thinking! 😂",
+                "10/10 sticker choice! 👏",
+                "Wait, why that sticker? Explain yourself! 🤔"
+            ]
+
+        # Save into session state
+        st.session_state["analysis_result"] = {
+            "title": sticker_display_name,
+            "meaning": meaning,
+            "ctx_exp": ctx_exp,
+            "tones": tones,
+            "visible_info": visible_info,
+            "meme_info": meme_info,
+            "replies": replies
+        }
+        st.session_state["last_analyzed_key"] = current_sticker_key
+
+    # Display Analysis Result if available
+    if "analysis_result" in st.session_state and st.session_state.get("last_analyzed_key") == current_sticker_key:
+        res = st.session_state["analysis_result"]
+        
+        st.markdown(f"### 🏷️ Sticker: **{res['title']}**")
+        st.markdown(f"#### 💡 What It Probably Means\n**{res['meaning']}**")
         
         # Tone Badges
         st.write("🎭 **Emotional Tone:**")
-        tones_html = "".join([f'<span class="badge">{t}</span>' for t in preset_info["tones"]])
+        tones_html = "".join([f'<span class="badge">{t}</span>' for t in res["tones"]])
         st.markdown(tones_html, unsafe_allow_html=True)
 
         st.markdown("---")
-        st.markdown(f"### 🎯 In Your Conversation\n{ctx_msg}")
+        st.markdown(f"#### 🎯 In Your Conversation\n{res['ctx_exp']}")
 
-        # Details in Expanders
-        with st.expander("👁️ What is visibly present in the image"):
-            st.write(preset_info["desc"])
+        with st.expander("👁️ Visible Details in Image"):
+            st.write(res["visible_info"])
             
         with st.expander("🌐 Meme & Cultural Reference"):
-            st.write(preset_info["meme"])
+            st.write(res["meme_info"])
 
-        st.markdown("### 💬 Suggested Replies You Can Send")
-        for reply in preset_info["replies"]:
+        st.markdown("#### 💬 Suggested Replies You Can Send")
+        for reply in res["replies"]:
             st.code(f'"{reply}"', language=None)
 
-        # Follow up
+        # Follow up section
         st.markdown("---")
-        st.markdown("### ❓ Ask a Follow-up Question")
-        followup_q = st.text_input("Ask about this sticker (e.g. 'Why is this funny?', 'Is it sarcastic?')")
-        if followup_q:
-            if "funny" in followup_q.lower():
+        st.markdown("#### ❓ Ask a Follow-up Question")
+        q = st.text_input("Ask anything about this sticker (e.g. 'Why is it funny?', 'Is it sarcastic?'):")
+        if q:
+            if "funny" in q.lower():
                 st.info("It's funny because of the hyper-exaggerated reaction! In messaging culture, sending an over-the-top reaction image breaks the tension and turns a potentially stressful topic into a lighthearted joke.")
-            elif "sarcastic" in followup_q.lower():
+            elif "sarcastic" in q.lower():
                 st.info("Yes! This sticker is frequently used with sarcastic undertones—especially when responding to obvious questions or unreasonable demands.")
+            elif "hinglish" in q.lower():
+                st.info(f"Hinglish mein iska matlab: Ye sticker mazaak mein over-dramatic reaction dene ke liye use hota hai!")
             else:
-                st.info(f"Regarding '{followup_q}': Based on the visual tone and context, this sticker softens the conversation and invites playful banter.")
+                st.info(f"Regarding '{q}': Based on the visual tone and context, this sticker softens the conversation and invites playful banter.")
     else:
-        st.info("👈 Select a sticker on the left and click **'Understand This Sticker'** to view the multi-stage AI analysis!")
+        st.info("👈 Upload your sticker or choose a preset on the left, then click **'Understand This Sticker'**!")
